@@ -1,0 +1,60 @@
+// Prisma Schema for the Draftbit Coding Challenge Prism Component.
+
+// This schema defines the data models and their relationships for managing
+// components with customizable margin and padding properties.
+
+// Models:
+// - `Component`: Represents a UI component, which has a one-to-one relationship
+// with `Props`. Each component can have its own unique set of properties.
+
+// - `Props`: Contains styling properties related to margin and padding. 
+// Each set of props is associated with a single component.
+
+// - `MarginAndPadding`: Stores the margin and padding values for a component.
+// Values can be specified in pixels, percentages, or set to "auto". Defaults 
+// are provided to ensure valid styling properties.
+
+// Relationships:
+// - `Component` to `Props`: One-to-One
+// - `Props` to `MarginAndPadding`: One-to-One
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
+}
+
+model Component {
+    id        String   @id @default(uuid())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    propsId   String   @unique
+    props     Props    @relation(fields: [propsId], references: [id], onDelete: Cascade)
+}
+
+model Props {
+    id                 String           @id @default(uuid())
+    createdAt          DateTime         @default(now())
+    updatedAt          DateTime         @updatedAt
+    marginAndPaddingId String           @unique
+    marginAndPadding   MarginAndPadding @relation(fields: [marginAndPaddingId], references: [id], onDelete: Cascade)
+    Component          Component?
+}
+
+model MarginAndPadding {
+    id            String   @id @default(uuid())
+    createdAt     DateTime @default(now())
+    updatedAt     DateTime @updatedAt
+    marginTop     String?  @default("0")
+    marginBottom  String?  @default("0")
+    marginLeft    String?  @default("0")
+    marginRight   String?  @default("0")
+    paddingTop    String?  @default("0")
+    paddingBottom String?  @default("0")
+    paddingLeft   String?  @default("0")
+    paddingRight  String?  @default("0")
+    Props         Props?
+}
