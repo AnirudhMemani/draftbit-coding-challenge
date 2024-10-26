@@ -45,16 +45,30 @@ model Props {
 }
 
 model MarginAndPadding {
-    id            String   @id @default(uuid())
-    createdAt     DateTime @default(now())
-    updatedAt     DateTime @updatedAt
-    marginTop     String?  @default("0")
-    marginBottom  String?  @default("0")
-    marginLeft    String?  @default("0")
-    marginRight   String?  @default("0")
-    paddingTop    String?  @default("0")
-    paddingBottom String?  @default("0")
-    paddingLeft   String?  @default("0")
-    paddingRight  String?  @default("0")
-    Props         Props?
+    id                String    @id @default(uuid())
+    createdAt         DateTime  @default(now())
+    updatedAt         DateTime  @updatedAt
+    marginTop         Decimal?  @default(0)
+    marginBottom      Decimal?  @default(0)
+    marginLeft        Decimal?  @default(0)
+    marginRight       Decimal?  @default(0)
+    paddingTop        Decimal?  @default(0)
+    paddingBottom     Decimal?  @default(0)
+    paddingLeft       Decimal?  @default(0)
+    paddingRight      Decimal?  @default(0)
+    marginTopUnit     UnitType? @default(PIXELS)
+    marginBottomUnit  UnitType? @default(PIXELS)
+    marginLeftUnit    UnitType? @default(PIXELS)
+    marginRightUnit   UnitType? @default(PIXELS)
+    paddingTopUnit    UnitType? @default(PIXELS)
+    paddingBottomUnit UnitType? @default(PIXELS)
+    paddingLeftUnit   UnitType? @default(PIXELS)
+    paddingRightUnit  UnitType? @default(PIXELS)
+    Props             Props?
+}
+
+enum UnitType {
+    PIXELS
+    PERCENTAGE
+    AUTO
 }
