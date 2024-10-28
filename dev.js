@@ -1,4 +1,4 @@
 require("@babel/register")({
-  extensions: [".js", ".ts"],
+    extensions: [".js", ".ts"],
 });
-require("./server.ts");
+require("./backend/src/server.ts");
