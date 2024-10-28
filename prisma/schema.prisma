@@ -19,7 +19,8 @@
 // - `Props` to `MarginAndPadding`: One-to-One
 
 generator client {
-    provider = "prisma-client-js"
+    provider      = "prisma-client-js"
+    binaryTargets = ["native", "debian-openssl-3.0.x"]
 }
 
 datasource db {
@@ -56,19 +57,19 @@ model MarginAndPadding {
     paddingBottom     Decimal?  @default(0)
     paddingLeft       Decimal?  @default(0)
     paddingRight      Decimal?  @default(0)
-    marginTopUnit     UnitType? @default(PIXELS)
-    marginBottomUnit  UnitType? @default(PIXELS)
-    marginLeftUnit    UnitType? @default(PIXELS)
-    marginRightUnit   UnitType? @default(PIXELS)
-    paddingTopUnit    UnitType? @default(PIXELS)
-    paddingBottomUnit UnitType? @default(PIXELS)
-    paddingLeftUnit   UnitType? @default(PIXELS)
-    paddingRightUnit  UnitType? @default(PIXELS)
+    marginTopUnit     UnitType? @default(POINTS)
+    marginBottomUnit  UnitType? @default(POINTS)
+    marginLeftUnit    UnitType? @default(POINTS)
+    marginRightUnit   UnitType? @default(POINTS)
+    paddingTopUnit    UnitType? @default(POINTS)
+    paddingBottomUnit UnitType? @default(POINTS)
+    paddingLeftUnit   UnitType? @default(POINTS)
+    paddingRightUnit  UnitType? @default(POINTS)
     Props             Props?
 }
 
 enum UnitType {
-    PIXELS
+    POINTS
     PERCENTAGE
     AUTO
 }
