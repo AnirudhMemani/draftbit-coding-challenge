@@ -12,6 +12,52 @@ type TMarginPaddingSectionProps = {
     setMarginPadding: React.Dispatch<SetStateAction<IMarginPaddingSettings | null>>;
 };
 
+/**
+ * MarginPaddingSection Component
+ *
+ * This React functional component manages and displays margin and padding settings
+ * for a given layout. It provides input fields and unit selectors for each margin
+ * and padding property, allowing the user to adjust values and save changes.
+ * The component also tracks input focus, default values, and changes,
+ * enabling users to discard or reset values if necessary.
+ *
+ * Props:
+ * - `isLoading` (boolean): Indicates if data is loading, showing a loader when true.
+ * - `marginPadding` (IMarginPaddingSettings | null): The current margin and padding settings,
+ *    including default and current values and units for each property.
+ * - `setMarginPadding` (React.Dispatch<SetStateAction<IMarginPaddingSettings | null>>):
+ *    Function to update the state of margin and padding settings.
+ *
+ * State:
+ * - `inputWidth` (number): Tracks the width of the input element based on content,
+ *    ensuring the entire input is displayed.
+ *
+ * Helper Functions:
+ * - `buildRequestBody`: Formats the current margin and padding values into a structure
+ *    suitable for the API request payload.
+ * - `setCurrentAsDefault`: Resets the default values and units for margin and padding
+ *    to their current values, updating the initial state.
+ * - `handleSaveChanges`: Sends a PUT request with current settings to the backend API.
+ *    Updates default values if the request is successful.
+ * - `handleDiscardChanges`: Resets the current values and units for all properties
+ *    to their respective default values.
+ * - `handleInputChange`: Validates and updates the input value for a given margin or padding key.
+ * - `handleFocusChange`: Updates focus status for the specified key, toggling styles
+ *    based on focus.
+ * - `handleUnitSelection`: Updates the unit for a specified key when a new unit is selected
+ *    from the dropdown.
+ *
+ * UI Structure:
+ * - Renders input and dropdown selectors for each margin and padding property.
+ * - Buttons for saving and discarding changes.
+ *
+ * API:
+ * - PUT request to `/api/v1/component/${componentId}/margin-padding` updates margin
+ *    and padding values on the backend.
+ *
+ * @returns JSX.Element
+ */
+
 export const MarginPaddingSection: React.FC<TMarginPaddingSectionProps> = ({
     isLoading,
     marginPadding,

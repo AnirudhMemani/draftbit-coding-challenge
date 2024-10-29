@@ -1,15 +1,40 @@
 import z from "zod";
 
+/**
+ * Enum representing the allowed units for margin and padding values.
+ * - "POINTS": Represents a unit in points.
+ * - "PERCENTAGE": Represents a unit in percentage.
+ * - "AUTO": Represents an automatic layout setting where no numerical value is needed.
+ */
 const UnitEnum = ["POINTS", "PERCENTAGE", "AUTO"] as const;
 export type TUnitEnum = (typeof UnitEnum)[number];
 
+/**
+ * Set containing units that are allowed to have an empty value.
+ * Currently, only the "AUTO" unit is permitted to have an empty (undefined) value.
+ */
 const ALLOW_EMPTY_VALUE_UNITS = new Set(["AUTO"]);
 
+/**
+ * Schema for a value-unit pair representing either a margin or padding property.
+ * - `value` (optional): The numerical value of the margin or padding.
+ * - `unit`: The unit associated with the margin or padding value, restricted to the UnitEnum types.
+ */
 const valueUnitPairSchema = z.object({
     value: z.number().optional(),
     unit: z.enum(UnitEnum),
 });
 
+/**
+ * Schema for validating margin and padding settings in a component.
+ * Defines a partial object schema with properties for each margin and padding side:
+ * - `paddingTop`, `paddingBottom`, `paddingLeft`, `paddingRight`
+ * - `marginTop`, `marginBottom`, `marginLeft`, `marginRight`
+ * Each property is a value-unit pair validated by `valueUnitPairSchema`.
+ *
+ * The schema also enforces a custom validation rule:
+ * - If a margin or padding unit is specified, a value must also be present (unless the unit is "AUTO").
+ */
 export const marginPaddingSettingsSchema = z
     .object({
         paddingTop: valueUnitPairSchema,
