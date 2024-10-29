@@ -1,0 +1,26 @@
+.PropertiesPanel {
+    width: 400px;
+    background-color: #28334d;
+    height: 100vh;
+    overflow-x: hidden;
+}
+
+.Collapsible {
+    margin-bottom: 2px;
+}
+
+.Collapsible-button {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    background-color: #3d4b6c;
+    border: none;
+    padding: 8px;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.Collapsible-content {
+    margin: 8px;
+}

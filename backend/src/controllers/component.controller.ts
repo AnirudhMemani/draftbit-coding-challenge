@@ -1,9 +1,21 @@
 import { Request, Response } from "express";
+import seed from "../db/seed";
 import { MarginPaddingResponseDTO } from "../dto/marginPadding.dto";
 import { STATUS_CODE } from "../lib/constants";
 import { printLogs } from "../lib/log";
 import { marginPaddingSettingsSchema } from "../schema/component.schema";
 import { fetchComponentById, updateComponentPaddingAndMargin } from "../services/component.service";
+
+export const getComponentId = async (_req: Request, res: Response) => {
+    try {
+        const componentId = await seed();
+
+        res.status(STATUS_CODE.OK).json({ componentId });
+    } catch (error) {
+        printLogs("Error trying to get component ID");
+        res.status(STATUS_CODE.INTERNAL_SERVER_ERROR).json({ message: "Error fetching component ID" });
+    }
+};
 
 export const getMarginPadding = async (req: Request, res: Response) => {
     try {

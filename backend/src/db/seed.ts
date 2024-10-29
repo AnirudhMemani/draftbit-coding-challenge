@@ -1,28 +1,36 @@
 import { prisma } from ".";
 
-async function seed() {
-    await prisma.component.create({
-        data: {
-            props: {
-                create: {
-                    marginAndPadding: {
-                        create: {
-                            marginBottom: 10,
-                            paddingBottom: 10,
-                            paddingLeft: 20,
-                            marginRight: 30,
-                            marginBottomUnit: "POINTS",
-                            paddingBottomUnit: "POINTS",
-                            paddingLeftUnit: "PERCENTAGE",
-                            marginRightUnit: "POINTS",
+export default async function seed() {
+    const component = await prisma.component.findFirst({ select: { id: true } });
+
+    if (component) {
+        return component.id;
+    }
+
+    return await prisma.component
+        .create({
+            data: {
+                props: {
+                    create: {
+                        marginAndPadding: {
+                            create: {
+                                marginTop: 10,
+                                paddingBottom: 10,
+                                paddingLeft: 20,
+                                marginRight: 30,
+                                marginTopUnit: "POINTS",
+                                paddingBottomUnit: "POINTS",
+                                paddingLeftUnit: "PERCENTAGE",
+                                marginRightUnit: "POINTS",
+                                paddingTopUnit: "AUTO",
+                            },
                         },
                     },
                 },
             },
-        },
-    });
+            select: {
+                id: true,
+            },
+        })
+        .then((component) => component.id);
 }
-
-seed()
-    .then(() => console.log("Seed completed"))
-    .catch((error) => console.error("There was an error when trying to seed the database:", error));
