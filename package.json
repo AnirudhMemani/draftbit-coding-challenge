@@ -30,9 +30,9 @@
         "zod": "^3.23.8"
     },
     "scripts": {
-        "frontend:start": "concurrently --kill-others --names='webpack,rescript' 'NODE_OPTIONS=--openssl-legacy-provider react-scripts start' 'yarn re:start'",
+        "start": "concurrently --kill-others --names='webpack,rescript' 'NODE_OPTIONS=--openssl-legacy-provider react-scripts start' 'yarn re:start'",
         "build": "react-scripts build",
-        "start": "react-scripts start",
+        "frontend:start": "react-scripts start",
         "test": "react-scripts test",
         "eject": "react-scripts eject",
         "re:build": "rescript",
